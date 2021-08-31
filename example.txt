@@ -1,0 +1,6 @@
+
+  	pdf = WickedPdf.new.pdf_from_string('<h1>Hello</h1>')
+    save_path - Rails.root.join('test.pdf')
+    File.open(save_path, 'wb') do |file|
+    	file << pdf
+    end
