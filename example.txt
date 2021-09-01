@@ -4,3 +4,45 @@
     File.open(save_path, 'wb') do |file|
     	file << pdf
     end
+
+require 'rails_helper'
+
+describe Article, type: :model do
+	describe '#title_and_body' do
+		context 'when article has title and body' do
+			let!(:article) do
+				Article.create!(title: "title", body: "body")	
+			end	
+			it 'returns full data' do
+				expect(article.title_and_body).to eq('title: body')	 
+			end
+		end
+	end
+end
+
+require 'rails_helper'
+
+describe ArticlesController, type :controller do
+	describe '#index' do
+		context 'when articles exists' do
+			it 'assigns @articles variables' do
+				let(:article) { Article.create!}
+				it 'assign @article to empty' do
+					get :index, format: :json
+					expect(responce.status).to eq(200)				
+					expect(assigns(key:articles)).to eq([])
+					expect(responce).to render_template('index')
+				end
+		end
+		
+		context 'when articles dont exists' do
+			
+			it 'assign @article to empty' do
+				get :index
+				expect(responce.status).to eq(200)				
+				expect(assigns(key:articles)).to eq([])
+				expect(responce).to render_template('index')
+			end
+		end
+	end
+end
