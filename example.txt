@@ -46,3 +46,5 @@ describe ArticlesController, type :controller do
 		end
 	end
 end
+
+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
